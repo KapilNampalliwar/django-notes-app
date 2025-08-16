@@ -1,0 +1,5 @@
+# Ignore MySQL data
+data/mysql/db/
+*.pid
+*.sock
+*.log

@@ -33,6 +33,7 @@ pipeline {
             steps {
                 echo "🐳 Building Docker image..."
                 sh "docker-compose -f $DOCKER_COMPOSE_FILE build --pull"
+                echo "Docker image build successfully"
             }
         }
 

@@ -24,7 +24,7 @@ pipeline {
         stage("Checkout Code") {
             steps {
                 script {
-                clone('main' ,'https://github.com/KapilNampalliwar/django-notes-app.git')
+                clone('https://github.com/KapilNampalliwar/django-notes-app.git', 'main')
                 }
             }
         }

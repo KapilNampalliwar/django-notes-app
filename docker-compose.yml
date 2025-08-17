@@ -12,9 +12,16 @@ services:
       - notes-app-nw
 
   web:
-     image: "kapilnam09/notes-app:latest"
-     ports:
-         - "8000:8000"
+    build:
+      context: .
+    image: kapilnam09/notes-app:latest   # Local image built by pipeline
+    container_name: "web_cont"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - notes-app-nw
 
   db:
     image: mysql

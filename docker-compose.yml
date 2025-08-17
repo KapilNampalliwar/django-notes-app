@@ -19,7 +19,8 @@ services:
     ports:
       - "8000:8000"                 # Only for deployment
     depends_on:
-      - db
+          db: 
+            condition: service_healthy
     networks:
       - notes-app-nw
 

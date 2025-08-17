@@ -13,6 +13,18 @@ pipeline {
     }
 
     stages {
+        stage("Cleanup Old Containers") {
+            steps {
+                echo "🧹 Stopping and removing old containers..."
+                sh """
+                    docker ps -aq --filter "name=web_cont" | xargs -r docker rm -f
+                    docker ps -aq --filter "name=nginx_cont" | xargs -r docker rm -f
+                    docker ps -aq --filter "name=db_cont" | xargs -r docker rm -f
+                    docker network prune -f || true
+                """
+            }
+        }
+
         stage("Checkout Code") {
             steps {
                 script {
@@ -81,9 +93,12 @@ pipeline {
     post {
         always {
             echo "🧹 Cleaning up unused Docker resources..."
-            sh 'docker image prune -f || true'
-            sh 'docker container prune -f || true'
-            sh 'docker volume prune -f || true'
+            sh """
+                docker image prune -f || true
+                docker container prune -f || true
+                docker volume prune -f || true
+                docker network prune -f || true
+            """
         }
         success {
             echo "✅ Pipeline completed successfully!"

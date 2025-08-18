@@ -12,9 +12,7 @@ services:
       - notes-app-nw
 
   web:
-    build:
-      context: .
-    image: notes-app:latest        # Local build only
+    image: kapilnam09/notes-app:latest       
     container_name: web_cont
     ports:
       - "8000:8000"                 # Only for deployment
